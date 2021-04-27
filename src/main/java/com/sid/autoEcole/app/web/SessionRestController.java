@@ -1,7 +1,10 @@
 package com.sid.autoEcole.app.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,8 @@ import com.sid.autoEcole.app.service.IStudentService;
 @RestController
 @RequestMapping("/api")
 public class SessionRestController {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ExamRestController.class);
 	
 	@Autowired
 	private SessionRepository sessionRepository;
@@ -28,9 +33,14 @@ public class SessionRestController {
 
 	
 	// Rest API to get all session list
-	@GetMapping("/list")
-	public List<Session> sessions(){
-		return sessionRepository.findAll();
+	@GetMapping("/session/list")
+	public List<Session> sessions() {
+		try {
+			return sessionRepository.findAll();
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
+			return new ArrayList<>();
+		}
 	}
 
 	
@@ -44,7 +54,7 @@ public class SessionRestController {
 	}
 
 	// Rest API To update Student data after each session
-	@PostMapping("/update-result")
+	@PostMapping("/session/update-result")
 	public Boolean addSessionResult(@RequestBody List<SessionResultForm> sessionResultForm) {
 	
 	return sessionService.addSessionResult(sessionResultForm);
