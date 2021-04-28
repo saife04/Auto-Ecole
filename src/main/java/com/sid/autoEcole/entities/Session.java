@@ -18,19 +18,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name="session")
-@Data
+@Getter  @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+
 public class Session implements Serializable {
 	/**
 	 * 
@@ -52,6 +50,7 @@ public class Session implements Serializable {
 	 
 	 @OneToOne
 	 @JoinColumn(name = "cdrom_id", referencedColumnName = "cdrom_id")
+	 @JsonProperty(access = Access.READ_ONLY)
 	 private  CdRom cdRom;
 	
 

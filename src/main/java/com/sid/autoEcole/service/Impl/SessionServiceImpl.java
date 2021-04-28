@@ -1,7 +1,9 @@
-package com.sid.autoEcole.service;
+package com.sid.autoEcole.service.Impl;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -11,6 +13,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.sid.autoEcole.service.ISessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -86,6 +89,7 @@ public class SessionServiceImpl implements ISessionService {
 			Assert.notNull(student, "STUDENT CANNOT BE NULL");
 			fault.setStudent(student);
 			fault.setFaultNumber(0);
+			faultRepository.save(fault);
 		});
 		
 		
@@ -107,19 +111,19 @@ public class SessionServiceImpl implements ISessionService {
 			faultRepository.save(fault);
 			
 			if (sessionResultForm.getFaultScore() < 5) {
-				Integer score = student.getStatus() ;
+				int score = student.getStatus().getValue() ;
 				score += 1;
-				if (score == 5) {
+				if (score >= 4) {
 					student.setAuthorized(true);
+					student.setAuthorizationDate(LocalDateTime.now());
 				}
-				student.setStatus(score);
-				studentRepository.save(student);
+				student.setTotalScore(score);
 			} else {
-				student.setStatus(0);
-				studentRepository.save(student);
+				student.setTotalScore(0);
 			}
-			
-			
+			studentRepository.save(student);
+
+
 		}
 		
 		return true;

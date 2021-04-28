@@ -20,7 +20,7 @@ import com.sid.autoEcole.service.IStudentService;
 
 import lombok.Data;
 
-@RestController("/session")
+@RestController
 public class SessionRestController {
 	
 	@Autowired
@@ -29,30 +29,24 @@ public class SessionRestController {
 	@Autowired
 	private ISessionService sessionService;
 	
-	@Autowired
-	private SeriesRepository serieRepository;
+
 	
 	// Rest API to get all session list
 	@GetMapping("/list")
 	public List<Session> sessions(){
 		return sessionRepository.findAll();
 	}
-	
-	@GetMapping("/list-series")
-	public List<Series> series(){
-		return serieRepository.findAll();
-	}
+
 	
 	// Rest API To create a new session
-	@PostMapping("/create")
+	@PostMapping("/session/create")
 		public Boolean createSession(@RequestBody SessionForm sessionForm) {
 		
 		return sessionService.createSession(sessionForm);
 	
 		
 	}
-	
-	
+
 	// Rest API To update Student data after each session
 	@PostMapping("/update-result")
 	public Boolean addSessionResult(@RequestBody List<SessionResultForm> sessionResultForm) {
@@ -65,11 +59,3 @@ public class SessionRestController {
 
 }
 
-
-//@Data
-//class SessionForm {
-//	private List<Long> students;
-//	private String date;
-//	private Long cd;
-//	
-//}

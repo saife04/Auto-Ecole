@@ -7,6 +7,6 @@ import com.sid.autoEcole.entities.Exam;
 import com.sid.autoEcole.entities.Student;
 
 @RepositoryRestResource
-public interface ExmanRepository extends JpaRepository<Exam, Long> {
+public interface ExamRepository extends JpaRepository<Exam, Long> {
 
 }

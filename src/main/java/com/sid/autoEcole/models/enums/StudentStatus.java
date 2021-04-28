@@ -2,8 +2,8 @@ package com.sid.autoEcole.models.enums;
 
 public enum StudentStatus {
 	
-	    ACTIF(0),
-	    NOTACTIF(1),
+	    ACTIVE(0),
+	    NOT_ACTIVE(1),
 	    FAILED_EXAM(2);
 
 	    private int value;

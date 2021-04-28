@@ -6,7 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.sid.autoEcole.service.IAutoEcoleInitService;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@EnableSwagger2
 @SpringBootApplication
 public class AutoEcoleApplication implements CommandLineRunner {
 	
@@ -25,6 +27,7 @@ public class AutoEcoleApplication implements CommandLineRunner {
 		autoEcoleService.initSerie();
 		autoEcoleService.initOrder();
 		autoEcoleService.initSession();
+		autoEcoleService.initFaults();
 		
 		
 	}

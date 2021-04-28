@@ -1,52 +1,56 @@
-package com.sid.autoEcole.service;
+package com.sid.autoEcole.service.Impl;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.stream.Stream;
 
+import com.sid.autoEcole.dao.*;
+import com.sid.autoEcole.entities.*;
+import com.sid.autoEcole.models.enums.StudentStatus;
+import com.sid.autoEcole.service.IAutoEcoleInitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.sid.autoEcole.dao.CdRomRepository;
-import com.sid.autoEcole.dao.OrderRepository;
-import com.sid.autoEcole.dao.QuestionRepository;
-import com.sid.autoEcole.dao.SeriesRepository;
-import com.sid.autoEcole.dao.SessionRepository;
-import com.sid.autoEcole.dao.StudentRepository;
-import com.sid.autoEcole.entities.CdRom;
-import com.sid.autoEcole.entities.Order;
-import com.sid.autoEcole.entities.Question;
-import com.sid.autoEcole.entities.Series;
-import com.sid.autoEcole.entities.Session;
-import com.sid.autoEcole.entities.Student;
-
 @Service
 public class AutoEcoleInitServiceImpl implements IAutoEcoleInitService {
 	
-	@Autowired
-	private CdRomRepository cdRomRepository;
+
+	private final CdRomRepository cdRomRepository;
 	
-	@Autowired
-	private SessionRepository sessionRepository;
+
+	private final SessionRepository sessionRepository;
 	
-	@Autowired
-	private StudentRepository studentRepository;
+
+	private final StudentRepository studentRepository;
 	
-	@Autowired
-	private QuestionRepository questionRepository;
+
+	private final QuestionRepository questionRepository;
 	
-	@Autowired
-	private SeriesRepository serieRepository;
+
+	private final SeriesRepository serieRepository;
 	
+
+	private final OrderRepository orderRepository;
+
+
+	private final FaultRepository faultRepository;
+
 	@Autowired
-	private OrderRepository orderRepository;
+	public AutoEcoleInitServiceImpl(CdRomRepository cdRomRepository, SessionRepository sessionRepository, StudentRepository studentRepository, QuestionRepository questionRepository, SeriesRepository serieRepository, OrderRepository orderRepository, FaultRepository faultRepository) {
+		this.cdRomRepository = cdRomRepository;
+		this.sessionRepository = sessionRepository;
+		this.studentRepository = studentRepository;
+		this.questionRepository = questionRepository;
+		this.serieRepository = serieRepository;
+		this.orderRepository = orderRepository;
+		this.faultRepository = faultRepository;
+	}
 
 	@Override
 	public void initStudent() {
@@ -61,7 +65,10 @@ public class AutoEcoleInitServiceImpl implements IAutoEcoleInitService {
 				    gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
 				    student.setBirthDate(gc.getTime());
 				    int radomInt = 3+(int)(Math.random()*7);
-				    student.setAdress("adress" + radomInt);
+				    student.setAddress("adress" + radomInt);
+				    student.setStatus(StudentStatus.ACTIVE);
+				    student.setTotalScore(0);
+				    student.setAuthorized(false);
 				 
 					studentRepository.save(student);
 		
@@ -156,6 +163,39 @@ public class AutoEcoleInitServiceImpl implements IAutoEcoleInitService {
 				orderRepository.save(order);
 			}
 			
+		});
+	}
+
+
+	@Override
+	public void initFaults() {
+
+		sessionRepository.findAll().forEach( s -> {
+
+			List<Student> studentList = studentRepository.findAll();
+
+		    for (Student student : studentList) {
+		    	Fault fault = new Fault();
+		    	fault.setSession(s);
+		    	fault.setStudent(student);
+				int radomInt = 3+(int)(Math.random()*7);
+				fault.setFaultNumber(radomInt);
+				faultRepository.save(fault).getId();
+
+				Integer score = student.getTotalScore();
+				if (radomInt <= 5 ) {
+					score+=1;
+					student.setTotalScore(score);
+					if (score >= 2) {
+						student.setAuthorized(true);
+						student.setAuthorizationDate(LocalDateTime.now());
+					}
+				} else {
+					student.setTotalScore(0);
+				}
+				studentRepository.save(student);
+			}
+
 		});
 	}
 

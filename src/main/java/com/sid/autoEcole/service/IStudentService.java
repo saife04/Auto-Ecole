@@ -6,7 +6,9 @@ import com.sid.autoEcole.entities.Student;
 
 public interface IStudentService {
 	
-       public List<Student> getStudentList();
+       List<Student> getStudentList();
        
-       public Long addStudent(Student student);
+       Long addStudent(Student student);
+
+       List<Student> getFailedStudent();
 }
