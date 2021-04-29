@@ -51,7 +51,7 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/auto_ecole
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 spring.datasource.driver-class-name=org.postgresql.Driver
-spring.jpa.hibernate.ddl-auto = update
+spring.jpa.hibernate.ddl-auto = create
 ``` 
 
 You can choose `create` proprety for `spring.jpa.hibernate.ddl-auto` to create data base each time you lunch the app or `update` proprety to update database each time you lunch the app without dropping the schema.
