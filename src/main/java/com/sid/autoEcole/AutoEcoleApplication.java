@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.sid.autoEcole.service.IAutoEcoleInitService;
+import com.sid.autoEcole.app.service.IAutoEcoleInitService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
