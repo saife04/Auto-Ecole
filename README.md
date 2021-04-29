@@ -1,6 +1,8 @@
 # Auto-Ecole
 Driving school Management solution
 
+## ClassDiagram
+![ClassDiagram](https://user-images.githubusercontent.com/47791421/116622561-cf8a2080-a93c-11eb-897e-9cf1f97577d5.PNG)
 
 ## Requirements
 
