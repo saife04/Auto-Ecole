@@ -6,6 +6,7 @@ Driving school Management solution
 
 
 ## Logical Architecture
+![architecture_logique_application](https://user-images.githubusercontent.com/47791421/116623613-69060200-a93e-11eb-804d-58d2ec848111.jpg)
 
 ## Requirements
 
