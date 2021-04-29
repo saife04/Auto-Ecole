@@ -15,14 +15,12 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name="series")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @ToString
 public class Series extends  Base implements Serializable {

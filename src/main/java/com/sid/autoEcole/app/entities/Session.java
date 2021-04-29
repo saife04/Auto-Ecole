@@ -21,10 +21,13 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.*;
 
-@Entity(name="session")
+@EqualsAndHashCode(callSuper = false)
 @Getter  @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Entity(name="session")
+
 
 public class Session extends  Base implements Serializable {
 	/**

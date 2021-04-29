@@ -9,14 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name="fault")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @ToString
 public class Fault extends  Base implements Serializable {

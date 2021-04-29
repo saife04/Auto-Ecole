@@ -3,10 +3,7 @@ package com.sid.autoEcole.app.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.sid.autoEcole.app.dao.SeriesRepository;
 import com.sid.autoEcole.app.dao.SessionRepository;
@@ -19,6 +16,7 @@ import com.sid.autoEcole.app.service.ISessionService;
 import com.sid.autoEcole.app.service.IStudentService;
 
 @RestController
+@RequestMapping("/api")
 public class SessionRestController {
 	
 	@Autowired

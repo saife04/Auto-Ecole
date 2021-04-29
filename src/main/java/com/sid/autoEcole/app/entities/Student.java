@@ -10,14 +10,12 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sid.autoEcole.app.models.enums.StudentStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name="student")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @ToString
 public class Student extends  Base implements Serializable {

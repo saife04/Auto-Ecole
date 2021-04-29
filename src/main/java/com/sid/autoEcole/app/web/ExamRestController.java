@@ -4,6 +4,8 @@ import com.sid.autoEcole.app.entities.Student;
 import com.sid.autoEcole.app.models.forms.ExamResultForm;
 import com.sid.autoEcole.app.models.forms.SessionResultForm;
 import com.sid.autoEcole.app.service.IExamService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ExamRestController {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ExamRestController.class);
 
 	private final IExamService examService;
 
@@ -46,8 +50,13 @@ public class ExamRestController {
 	// Rest API To update Student data after an exam
 	@PostMapping("/exam/update-result")
 	public Boolean addExamResult(@RequestBody List<ExamResultForm> examResultForm) {
-	
-	   return examService.updateStudentInformationAfterExam(examResultForm);
+
+		try {
+			return examService.updateStudentInformationAfterExam(examResultForm);
+		} catch (Exception e){
+			LOG.error(e.getMessage());
+			return false;
+		}
 
     }
 	
